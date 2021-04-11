@@ -1,7 +1,155 @@
-#paint {
-  border: 1px solid black;
-  background : white;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+body {
+  padding: 0%;
+  margin: 0%;
+}
+
+p,span {
+  user-select: none;
+  padding: 0%;
+  margin: 0%;
+}
+
+p {
+  position: absolute;
+  width: 210px;
+  height: 48px;
+  left: 138px;
+  top: 21px;
+  font-family: Ubuntu;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 42px;
+  line-height: 48px;
+}
+
+p.con {
+  padding: 0%;
+  margin: 0%;
+  position: absolute;
+  width: 708px;
+  height: 210px;
+  left: 128px;
+  top: 210px;
+  font-family: Ubuntu;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 91px;
+  line-height: 105px;
+  color: #FFFFFF;
+}
+
+.bu1 {
+  padding: 32px 64px;
+  border-radius: 4px;
+  position: absolute;
+  width: 461px;
+  height: 110px;
+  left: 128px;
+  top: 587px;
+  border: #53FF7E;
+  background: #53FF7E;
+}
+
+h6 {
+  padding: 0%;
+  margin: 0%;
+  font-family: Ubuntu;
+  font-style: normal;
+  font-size: 40px;
+}
+
+.bu1:hover {
+  transition: all .5s ease-out;
+  padding: 32px 72px;
+  position: absolute;
+  width: 477px;
+  height: 110px;
+  left: 128px;
+  top: 587px;
+  background: #FFFFFF;
+  border: 0.4px solid #2B332D;
+  box-shadow: 0px 4px 75px rgba(0, 0, 0, 0.25);
+}
+
+img {
+  position: absolute;
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+section {
+  padding: 0%;
+  margin: 0%;
+  position: relative;
+}
+
+section img {
+  position: absolute;
+}
+
+.top {
+  animation-name: fade;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-duration: 4s;
+  opacity: 0;
+}
+
+.bu1 {
+  animation-name: floating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  margin-left: 30px;
+  margin-top: 5px;
+}
+
+.con2 {
+  position: absolute;
+  width: 697px;
+  height: 96px;
+  left: 128px;
+  top: 452px;
+  font-family: Ubuntu;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 42px;
+  line-height: 48px;
+  color: #FFFFFF;
+}
+
+@keyframes floating {
+  from {
+      transform: translate(0, 0px);
+  }
+
+  65% {
+      transform: translate(0, 15px);
+  }
+
+  to {
+      transform: translate(0, -0px);
+  }
+}
+
+@keyframes fade {
+  0% {
+      opacity: 1;
+  }
+
+  25% {
+      opacity: 1;
+  }
+
+  75% {
+      opacity: 0;
+  }
+
+  100% {
+      opacity: 0;
+  }
 }
