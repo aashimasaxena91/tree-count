@@ -5,14 +5,16 @@ var sketch = document.getElementById('sketch');
 var sketch_style = getComputedStyle(sketch);
 
 //canvas initial dimension
-canvas.width = 500;
-canvas.height = 250;
+canvas.width = 700;
+canvas.height = 393.25;
 
 //arrays storing values of x and y
 var coordinateX = [];
 var coordinateY = [];
-const l = 600; //array size
-var m = 0;  //increments if 2 pair of coordinates are same
+const l = 600;
+//array size
+var m = 0;
+//increments if 2 pair of coordinates are same
 
 // drawing code
 //mouse initial coordinates
@@ -20,7 +22,8 @@ var mouse = {
   x: 0,
   y: 0
 };
-var drawOnce = "false"; //this will ensure that user draw only once
+var drawOnce = "false";
+//this will ensure that user draw only once
 /* Mouse Capturing Work */
 
 document.querySelector('#reselect').addEventListener('click', () => {
@@ -56,8 +59,8 @@ canvas.addEventListener('mouseup', function() {
   canvas.removeEventListener('mousemove', onPaint, false);
   drawOnce = "false";
 
-//checking for closed path or not
-  // m=0;
+  //checking for closed path or not
+  m = 0;
   for (i = 0; i < coordinateX.length - 1; i++) {
     for (var j = i + 1; j < coordinateX.length; j++) {
       if ((coordinateX[i] == coordinateX[j]) && (coordinateY[i] == coordinateY[j]))
@@ -72,7 +75,6 @@ canvas.addEventListener('mouseup', function() {
     coordinateX = [];
     coordinateY = [];
     console.log(coordinateX, coordinateY);
-
 
   } else {
     alert("The selected region is");
@@ -109,24 +111,35 @@ var selectedRegion = function() {
     ctx.stroke();
   }
 
-
 }
-
 
 //uploading the image
 
-const reader = new FileReader();
-const img = new Image();
+var reader = new FileReader();
+var img = new Image();
 
+//this will load the default image
+img.onload = function() {
+  drawOnce = "true";
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+};
+img.src = 'images/img1.png';
+//this will upload different images
 const uploadImage = (e) => {
   reader.onload = () => {
     img.onload = () => {
-      // myPics.width = img.width;
-      // myPics.height = img.height;
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      // context.drawImage(img, 0, 0);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+
+      let w = canvas.width;
+      let nw = img.naturalWidth;
+      let nh = img.naturalHeight;
+      let aspect = nw / nh;
+      let h = w / aspect;
+      console.log('height', h);
+      canvas.height = h;
+      ctx.drawImage(img, 0, 0, w, h);
+
+      document.getElementById("commonimg").src = reader.result;
       drawOnce = "true";
       coordinateX = [];
       coordinateY = [];
@@ -139,3 +152,51 @@ const uploadImage = (e) => {
 
 const imageLoader = document.getElementById("uploader");
 imageLoader.addEventListener("change", uploadImage);
+
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("commonimg");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+commonimg.onmouseover = function() {
+  modal.style.display = "block";
+
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+// $(document).ready(function() {
+//   $('#paint').hover(function() {
+//     $('#bodyid,#navbarid,p,#para,#treeid,#countid').css({
+// "background-color": "black",
+// "color": "black",
+// "opacity"     : 2
+//
+// });
+//   }, function() {
+//     // on mouseout, reset the background colour
+//     $('#bodyid,#navbarid,p,#para,#treeid,#countid').css({
+// "background-color": '',
+// "color": '',
+// "opacity"     : 1
+//
+// });
+//   });
+// });
