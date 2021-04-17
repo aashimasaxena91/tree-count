@@ -10,8 +10,8 @@ var reader = new FileReader();
 var img = new Image();
 
 //canvas initial dimension
-canvas.width = 600;
-canvas.height = 393.25;
+canvas.width = 900;
+canvas.height = 550;
 
 //arrays storing values of x and y
 var coordinateX = [];
@@ -37,15 +37,20 @@ var modal = document.getElementById("myModal");
 // Get the button that opens the modal
 var btn1 = document.getElementById("defaultimg");
 var btn2 = document.getElementById("commonimg");
+
 // var btn = document.getElementsByClassName("tapimg");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
+// if () {
+//
+// }
+
 //describing the properties of line
 ctx.lineJoin = 'round';
 ctx.lineCap = 'round';
-ctx.lineWidth = 2;
+ctx.lineWidth = 3;
 ctx.strokeStyle = "black";
 
 //reselecting the area
@@ -191,42 +196,89 @@ console.log(document.getElementById("sendimage").src);
 
 
 //this will load the default image on canvas
-img.onload = function() {
-  drawOnce = "true";
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-};
-img.src = 'images/img1.png';
+// img.onload = function() {
+//   drawOnce = "true";
+//   ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+// };
+// img.src = 'images/img1.png';
 
 // document.getElementById("commonimg").src= canvas.toDataURL();
+var imagefunction = function(){
+  img.onload = () => {
 
+    // let w = canvas.width;
+    let nw = img.naturalWidth;
+    let nh = img.naturalHeight;
+    console.log("nw",nw,"nh",nh);
+    // let aspect = nw / nh;
+    // let h = w / aspect;
+    // console.log('height', h);
+    // canvas.height = h;
+let h = canvas.height;
+let aspect1 = nh/nw;
+let w = h/aspect1;
+canvas.width = w;
+    ctx.drawImage(img, 0, 0, w, h);
+    document.getElementById("sel").style.color = 'black';
+    document.getElementById("sel").innerHTML = "Select the area in which you want to Count Trees";
+    document.getElementById("sel1").innerHTML = "Select the area in which you want to Count Trees";
+    document.getElementById("commonimg").src = reader.result;
+    console.log("reader",reader.result);
+
+    document.getElementById("defaultimg").style.display = "none";
+    document.getElementById("commonimg").style.display = "block";
+
+
+    document.getElementById("commonimg").height = 400;    //making the height of all the small image constant
+    var imageHeight = document.getElementById("commonimg").height;
+    var aspect2 = nh / nw;
+    document.getElementById("commonimg").width = imageHeight/ aspect2;
+    console.log("image width",document.getElementById("commonimg").width,"image height",document.getElementById("commonimg").height);
+
+    drawOnce = "true";
+    coordinateX = [];
+    coordinateY = [];
+    console.log(coordinateX, coordinateY);
+  };
+};
+// img.onload = () => {
+//
+//   // let w = canvas.width;
+//   let nw = img.naturalWidth;
+//   let nh = img.naturalHeight;
+//   console.log("nw",nw,"nh",nh);
+//   // let aspect = nw / nh;
+//   // let h = w / aspect;
+//   // console.log('height', h);
+//   // canvas.height = h;
+// let h = canvas.height;
+// let aspect1 = nh/nw;
+// let w = h/aspect1;
+// canvas.width = w;
+//   ctx.drawImage(img, 0, 0, w, h);
+//   document.getElementById("sel").style.color = 'black';
+//   document.getElementById("sel").innerHTML = "Select the area in which you want to Count Trees";
+//   document.getElementById("sel1").innerHTML = "Select the area in which you want to Count Trees";
+//   document.getElementById("commonimg").src = reader.result;
+//   document.getElementById("defaultimg").style.display = "none";
+//   document.getElementById("commonimg").style.display = "block";
+//
+//
+//   document.getElementById("commonimg").height = 400;    //making the height of all the small image constant
+//   var imageHeight = document.getElementById("commonimg").height;
+//   var aspect2 = nh / nw;
+//   document.getElementById("commonimg").width = imageHeight/ aspect2;
+//   console.log("image width",document.getElementById("commonimg").width,"image height",document.getElementById("commonimg").height);
+//
+//   drawOnce = "true";
+//   coordinateX = [];
+//   coordinateY = [];
+//   console.log(coordinateX, coordinateY);
+// };
 //this will upload different images on canvas
 const uploadImage = (e) => {
   reader.onload = () => {
-    img.onload = () => {
-
-      let w = canvas.width;
-      let nw = img.naturalWidth;
-      let nh = img.naturalHeight;
-      let aspect = nw / nh;
-      let h = w / aspect;
-      console.log('height', h);
-      canvas.height = h;
-
-      // let h= canvas.height;
-
-      ctx.drawImage(img, 0, 0, w, h);
-      document.getElementById("sel").style.color = 'black';
-      document.getElementById("sel").innerHTML = "Select the area in which you want to Count Trees";
-      document.getElementById("sel1").innerHTML = "Select the area in which you want to Count Trees";
-      document.getElementById("commonimg").src = reader.result;
-      document.getElementById("defaultimg").style.display = "none";
-      document.getElementById("commonimg").style.display = "block";
-
-      drawOnce = "true";
-      coordinateX = [];
-      coordinateY = [];
-      console.log(coordinateX, coordinateY);
-    };
+   imagefunction();
     img.src = reader.result;
   };
   reader.readAsDataURL(e.target.files[0]);
@@ -234,15 +286,14 @@ const uploadImage = (e) => {
 
 const imageLoader = document.getElementById("uploader");
 imageLoader.addEventListener("change", uploadImage);
+// var drag = document.getElementById("defaultimg");
+// drag.addEventListener("drop", uploadImage);
 
 
 
 
 // When the user clicks on the button, open the modal
-btn1.onclick = function() {
-  modal.style.display = "block";
 
-}
 btn2.onclick = function() {
   modal.style.display = "block";
 
@@ -258,6 +309,13 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+//
+// btn1.onclick = function() {
+//   // modal.style.display = "block";
+// document.getElementById("uploader").click();
+// }
+
 
 
 // $(document).ready(function() {
@@ -278,3 +336,59 @@ window.onclick = function(event) {
 // });
 //   });
 // });
+
+document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+  const dropZoneElement = inputElement.closest(".drop-zone");
+
+  dropZoneElement.addEventListener("click", (e) => {
+    inputElement.click();
+  });
+
+  inputElement.addEventListener("change", (e) => {
+    if (inputElement.files.length) {
+      updateThumbnail(dropZoneElement, inputElement.files[0]);
+    }
+  });
+
+  dropZoneElement.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZoneElement.classList.add("drop-zone--over");
+  });
+
+  ["dragleave", "dragend"].forEach((type) => {
+    dropZoneElement.addEventListener(type, (e) => {
+      dropZoneElement.classList.remove("drop-zone--over");
+    });
+  });
+
+  dropZoneElement.addEventListener("drop", (e) => {
+    e.preventDefault();
+
+    if (e.dataTransfer.files.length) {
+      inputElement.files = e.dataTransfer.files;
+      updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+    }
+
+    dropZoneElement.classList.remove("drop-zone--over");
+  });
+});
+
+
+function updateThumbnail(dropZoneElement, file) {
+  // let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+  // First time - remove the prompt
+  if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+    dropZoneElement.querySelector(".drop-zone__prompt").remove();
+  }
+  if (file.type.startsWith("image/")) {
+    reader.onload = () => {
+      imagefunction();
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+  //  else {
+  //   thumbnailElement.style.backgroundImage = null;
+  // }
+}

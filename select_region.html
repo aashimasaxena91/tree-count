@@ -29,7 +29,15 @@
   </div>
   <!-- canvas -->
   <div id="sketch">
-    <img id="defaultimg" class="tapimg" src="images/img1.png" alt="upload">
+    <!-- <img id="defaultimg" class="tapimg" src="images/default_upload.webp" alt="upload"> -->
+    <!-- <img id="defaultimg" class="tapimg" src="" alt=""> -->
+    <!-- <div >
+        <p>Upload image file with the file dialog or by dragging and dropping image onto the dashed region</p>
+    </div> -->
+    <div id="defaultimg" class="drop-zone">
+   <span class="drop-zone__prompt">Drop file here or click to upload</span>
+   <input type="file" name="myFile" class="drop-zone__input">
+ </div>
     <img id="commonimg" class="tapimg" crossorigin="anonymous" src="" alt="upload" >
     <!-- The Modal -->
     <div id="myModal" class="modal">
@@ -43,7 +51,7 @@
       </div>
 
     </div>
-    <p id="sel1">Select the area in which you want to Count Trees</p>
+    <p id="sel1">Upload the picture for which you want to count the tree.</p>
   </div>
   <!-- <div style="display:inline;position:relative;top:  150px;"> -->
   <div style="display:flex;justify-content: center;align-items: center;padding: 20px 24px; margin:10px; margin-top: 50px;">
@@ -89,6 +97,9 @@
     </form>
 
   </div>
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
   <!-- </div> -->
   <script src="selected_region.js" charset="utf-8"></script>
   <!-- bootstrap js -->
